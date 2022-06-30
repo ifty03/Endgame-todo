@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const UpdateModal = ({ refetch, id }) => {
+  //   fetch data for update
+  const [task, setTask] = useState({});
+  const [update, setUpdate] = useState(false);
+  useEffect(() => {
+    fetch(`http://localhost:5000/task/${id}`)
+      .then((res) => res.json())
+      .then((data) => setTask(data));
+  }, [id, update]);
+  console.log(task);
   const updateTask = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
 
-    fetch("http://localhost:5000/task", {
+    fetch(`http://localhost:5000/task/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -15,9 +25,14 @@ const UpdateModal = ({ refetch, id }) => {
       body: JSON.stringify({ name, description, date }),
     })
       .then((res) => res.json())
-      .then((data) => refetch());
+      .then((data) => {
+        refetch();
+        setUpdate(!update);
+        toast.success("Your Task Updated 😀");
+      });
     e.target.reset();
   };
+
   return (
     <div className="bg-slate-500">
       {/* <!-- The button to open modal --> */}
@@ -31,8 +46,8 @@ const UpdateModal = ({ refetch, id }) => {
           >
             ✕
           </label>
+          <h2>{id}</h2>
           {/* from input */}
-          <h2>id:{id}</h2>
           <form onSubmit={updateTask}>
             <div class="form-control">
               <label class="label">
@@ -41,6 +56,7 @@ const UpdateModal = ({ refetch, id }) => {
               <input
                 type="text"
                 name="name"
+                defaultValue={task?.name}
                 placeholder="Task Title"
                 required
                 class="input input-bordered"
@@ -53,6 +69,7 @@ const UpdateModal = ({ refetch, id }) => {
               <input
                 type="text"
                 name="date"
+                defaultValue={task?.date}
                 placeholder="Date"
                 required
                 class="input input-bordered"
@@ -65,6 +82,7 @@ const UpdateModal = ({ refetch, id }) => {
               <textarea
                 required
                 name="description"
+                defaultValue={task?.description}
                 class="textarea textarea-bordered"
                 placeholder="description"
               ></textarea>

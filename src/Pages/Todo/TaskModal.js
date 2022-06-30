@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const TaskModal = ({ refetch }) => {
   const handelTask = (e) => {
@@ -15,7 +16,10 @@ const TaskModal = ({ refetch }) => {
       body: JSON.stringify({ name, description, date }),
     })
       .then((res) => res.json())
-      .then((data) => refetch());
+      .then((data) => {
+        refetch();
+        toast.success("Your Task Added.🥰");
+      });
     e.target.reset();
   };
   return (

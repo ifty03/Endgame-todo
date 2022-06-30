@@ -4,6 +4,7 @@ import Navbar from "./Pages/Navbar/Navbar";
 import Completed from "./Pages/Completed/Completed";
 import Todo from "./Pages/Todo/Todo";
 import Calender from "./Pages/Calender/Calender";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/todo" element={<Todo />}></Route>
         <Route path="/calendar" element={<Calender />}></Route>
       </Routes>
+      <Toaster />
     </div>
   );
 }

@@ -5,13 +5,37 @@ import { useQuery } from "react-query";
 import logo from "../../Assets/itu-1-removebg-preview.png";
 import TaskModal from "./TaskModal";
 import UpdateModal from "./UpdateModal";
+import toast from "react-hot-toast";
 
 const Todo = () => {
   const [currentId, setCurrentId] = useState("");
   const { data: tasks, refetch } = useQuery("task", () =>
     fetch("http://localhost:5000/task").then((res) => res.json())
   );
-  console.log(tasks);
+  //   handel complete task
+  const handelComplete = (task, refetch) => {
+    fetch("http://localhost:5000/completeTask", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(task),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        fetch(`http://localhost:5000/task/${task?._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            toast.success("Task Completed ! 😎");
+          });
+      });
+  };
   return (
     <div class="overflow-x-auto text-slate-300">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
@@ -55,7 +79,7 @@ const Todo = () => {
                 {tasks?.map((task) => (
                   <tr>
                     <th>
-                      <label>
+                      <label onClick={() => handelComplete(task, refetch)}>
                         <input type="checkbox" class="checkbox" />
                       </label>
                     </th>
