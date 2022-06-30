@@ -6,7 +6,7 @@ const TaskModal = () => {
     const name = e.target.name.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
-    console.log(name, description, date);
+
     e.target.reset();
   };
   return (
