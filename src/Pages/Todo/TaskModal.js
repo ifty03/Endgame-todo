@@ -1,12 +1,21 @@
 import React from "react";
 
-const TaskModal = () => {
+const TaskModal = ({ refetch }) => {
   const handelTask = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
 
+    fetch("http://localhost:5000/addTask", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ name, description, date }),
+    })
+      .then((res) => res.json())
+      .then((data) => refetch());
     e.target.reset();
   };
   return (
