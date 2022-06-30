@@ -4,8 +4,10 @@ import { BiMessageSquareAdd } from "react-icons/bi";
 import { useQuery } from "react-query";
 import logo from "../../Assets/itu-1-removebg-preview.png";
 import TaskModal from "./TaskModal";
+import UpdateModal from "./UpdateModal";
 
 const Todo = () => {
+  const [currentId, setCurrentId] = useState("");
   const { data: tasks, refetch } = useQuery("task", () =>
     fetch("http://localhost:5000/task").then((res) => res.json())
   );
@@ -69,9 +71,13 @@ const Todo = () => {
                     </td>
 
                     <th>
-                      <button class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 ">
+                      <label
+                        for="my-modal-1"
+                        onClick={() => setCurrentId(task?._id)}
+                        class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
+                      >
                         <BiEdit />
-                      </button>
+                      </label>
                     </th>
                   </tr>
                 ))}
@@ -90,6 +96,7 @@ const Todo = () => {
           </div>
         )}
         <TaskModal refetch={refetch} />
+        <UpdateModal refetch={refetch} id={currentId} />
       </div>
     </div>
   );
