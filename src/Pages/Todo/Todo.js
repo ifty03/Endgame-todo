@@ -20,7 +20,9 @@ const Todo = () => {
     isLoading,
   } = useQuery("task", () =>
     fetch(
-      `http://localhost:5000/allTask?email=${user?.email}&complete=${false}`
+      `https://damp-caverns-30204.herokuapp.com/allTask?email=${
+        user?.email
+      }&complete=${false}`
     ).then((res) => res.json())
   );
   //   handel complete task
@@ -35,7 +37,7 @@ const Todo = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:5000/task/${task?._id}`, {
+        fetch(`https://damp-caverns-30204.herokuapp.com/task/${task?._id}`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
