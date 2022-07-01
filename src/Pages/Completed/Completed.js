@@ -1,21 +1,54 @@
 import React, { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useQuery } from "react-query";
+import Swal from "sweetalert2";
 import nothing from "../../Assets/no-result.gif";
 
 const Completed = () => {
   const [complete, setComplete] = useState(true);
+  const { data: tasks, refetch } = useQuery("completedTask", () =>
+    fetch("http://localhost:5000/completedTask").then((res) => res.json())
+  );
+  console.log(tasks);
+
+  const handelDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/completedTask/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+          });
+
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
   return (
     <div class="overflow-x-auto text-slate-300">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
         <h2 className="-mt-2 mb-4 text-center text-2xl font-semibold">
           Your Completed Task 🤩
         </h2>
-        {!complete && (
+        {!tasks?.length && (
           <div>
             <img className="w-fit mx-auto" src={nothing} alt="" />
           </div>
         )}
-        {complete && (
+        {tasks?.length && (
           <table class="table w-full">
             {/* <!-- head --> */}
             <thead>
@@ -28,27 +61,32 @@ const Completed = () => {
 
             <tbody>
               {/* <!-- row 1 --> */}
-              <tr>
-                <td>
-                  <div class="flex items-center space-x-3">
-                    <div>
-                      <div class="font-bold">Hart Hagerty</div>
+              {tasks.map((task) => (
+                <tr>
+                  <td>
+                    <div class="flex items-center space-x-3">
+                      <div>
+                        <div class="font-bold">{task?.name}</div>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <div className="">
-                    Lorem ipsum dolor sit amet consectetur <br /> adipisicing
-                    elit. Veritatis, itaque.
-                  </div>
-                </td>
+                  </td>
+                  <td>
+                    <div className="">
+                      {task?.description?.slice(0, 40)} <br />{" "}
+                      {task?.description?.slice(41, 80)}
+                    </div>
+                  </td>
 
-                <th>
-                  <button class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 ">
-                    <RiDeleteBin6Line />
-                  </button>
-                </th>
-              </tr>
+                  <th>
+                    <button
+                      onClick={() => handelDelete(task?._id)}
+                      class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
+                    >
+                      <RiDeleteBin6Line />
+                    </button>
+                  </th>
+                </tr>
+              ))}
             </tbody>
 
             {/* <!-- foot --> */}

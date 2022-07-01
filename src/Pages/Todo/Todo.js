@@ -80,7 +80,11 @@ const Todo = () => {
                   <tr>
                     <th>
                       <label onClick={() => handelComplete(task, refetch)}>
-                        <input type="checkbox" class="checkbox" />
+                        <input
+                          checked={false}
+                          type="checkbox"
+                          class="checkbox"
+                        />
                       </label>
                     </th>
                     <td>
@@ -91,7 +95,10 @@ const Todo = () => {
                       </div>
                     </td>
                     <td>
-                      <div className="">{task?.description}</div>
+                      <div className="">
+                        {task?.description?.slice(0, 40)} <br />{" "}
+                        {task?.description?.slice(41, 80)}
+                      </div>
                     </td>
 
                     <th>
