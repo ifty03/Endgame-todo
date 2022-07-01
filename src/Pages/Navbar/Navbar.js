@@ -9,13 +9,13 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const [user] = useAuthState(auth);
   return (
-    <div class="navbar bg-base-300 h-20 md:px-10 text-slate-200 flex justify-between">
+    <div className="navbar bg-base-300 h-20 md:px-10 text-slate-200 flex justify-between">
       <div>
-        <div class="dropdown">
-          <label tabindex="0" class="btn btn-ghost lg:hidden">
+        <div className="dropdown">
+          <label tabindex="0" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -30,7 +30,7 @@ const Navbar = () => {
           </label>
           <ul
             tabindex="0"
-            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
               <NavLink to="/completed">Completed Tasks</NavLink>
@@ -68,8 +68,8 @@ const Navbar = () => {
       </div>
 
       <div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal p-0">
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal p-0">
             <li>
               <NavLink to="/completed">Completed Tasks</NavLink>
             </li>
@@ -87,7 +87,7 @@ const Navbar = () => {
                     await signOut(auth);
                     toast.success("Sign Out Success 🎆");
                   }}
-                  className="btn btn-secondary"
+                  className="btn btn-secondary ml-4"
                 >
                   Sign Out
                 </button>

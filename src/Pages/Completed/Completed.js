@@ -9,9 +9,9 @@ import auth from "../../firebase.init";
 const Completed = () => {
   const [user] = useAuthState(auth);
   const { data: tasks, refetch } = useQuery("completedTask", () =>
-    fetch(`http://localhost:5000/completedTask/${user?.email}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://damp-caverns-30204.herokuapp.com/completedTask/${user?.email}`
+    ).then((res) => res.json())
   );
   console.log(tasks);
 
@@ -26,7 +26,7 @@ const Completed = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/completedTask/${id}`, {
+        fetch(`https://damp-caverns-30204.herokuapp.com/completedTask/${id}`, {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
@@ -42,7 +42,7 @@ const Completed = () => {
     });
   };
   return (
-    <div class="overflow-x-auto text-slate-300">
+    <div className="overflow-x-auto text-slate-300">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
         <h2 className="-mt-2 mb-4 text-center text-2xl font-semibold">
           Your Completed Task 🤩
@@ -53,7 +53,7 @@ const Completed = () => {
           </div>
         )}
         {tasks?.length && (
-          <table class="table w-full">
+          <table className="table w-full">
             {/* <!-- head --> */}
             <thead>
               <tr>
@@ -68,9 +68,9 @@ const Completed = () => {
               {tasks.map((task) => (
                 <tr>
                   <td>
-                    <div class="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3">
                       <div>
-                        <div class="font-bold">{task?.name}</div>
+                        <div className="font-bold">{task?.name}</div>
                       </div>
                     </div>
                   </td>
@@ -84,7 +84,7 @@ const Completed = () => {
                   <th>
                     <button
                       onClick={() => handelDelete(task?._id)}
-                      class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
+                      className="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
                     >
                       <RiDeleteBin6Line />
                     </button>

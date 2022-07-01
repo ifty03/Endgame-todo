@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import Login from "./Shared/Login/Login";
 import SignUp from "./Shared/Login/SignUp";
 import RequireAuth from "./Component/RequireAuth";
+import Footer from "./Shared/Footer/Footer";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           }
         ></Route>
       </Routes>
+      <Footer />
       <Toaster />
     </div>
   );

@@ -13,13 +13,13 @@ const Todo = () => {
   const [currentId, setCurrentId] = useState("");
   const [user] = useAuthState(auth);
   const { data: tasks, refetch } = useQuery("task", () =>
-    fetch(`http://localhost:5000/allTask/${user?.email}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://damp-caverns-30204.herokuapp.com/allTask/${user?.email}`
+    ).then((res) => res.json())
   );
   //   handel complete task
   const handelComplete = (task, refetch) => {
-    fetch("http://localhost:5000/completeTask", {
+    fetch("https://damp-caverns-30204.herokuapp.com/completeTask", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -28,7 +28,7 @@ const Todo = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:5000/task/${task?._id}`, {
+        fetch(`https://damp-caverns-30204.herokuapp.com/task/${task?._id}`, {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
@@ -42,7 +42,7 @@ const Todo = () => {
       });
   };
   return (
-    <div class="overflow-x-auto text-slate-300">
+    <div className="overflow-x-auto text-slate-300">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
         {!tasks?.length && (
           <div>
@@ -68,7 +68,7 @@ const Todo = () => {
                 ADD YOUR TASK <BiMessageSquareAdd className="text-2xl" />
               </div>
             </label>
-            <table class="table w-full">
+            <table className="table w-full">
               {/* <!-- head --> */}
               <thead>
                 <tr>
@@ -88,14 +88,14 @@ const Todo = () => {
                         <input
                           checked={false}
                           type="checkbox"
-                          class="checkbox"
+                          className="checkbox"
                         />
                       </label>
                     </th>
                     <td>
-                      <div class="flex items-center space-x-3">
+                      <div className="flex items-center space-x-3">
                         <div>
-                          <div class="font-bold">{task?.name}</div>
+                          <div className="font-bold">{task?.name}</div>
                         </div>
                       </div>
                     </td>
@@ -110,7 +110,7 @@ const Todo = () => {
                       <label
                         for="my-modal-1"
                         onClick={() => setCurrentId(task?._id)}
-                        class="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
+                        className="btn bg-gradient-to-t from-purple-500 to-pink-600 btn-sm rounded-full h-12 text-2xl text-slate-300 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 "
                       >
                         <BiEdit />
                       </label>
