@@ -13,6 +13,7 @@ const TaskModal = ({ refetch }) => {
     const name = e.target.name.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
+    const complete = false;
     const email = user?.email;
 
     fetch("https://damp-caverns-30204.herokuapp.com/addTask", {
@@ -20,7 +21,7 @@ const TaskModal = ({ refetch }) => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ name, description, date, email }),
+      body: JSON.stringify({ name, description, date, email, complete }),
     })
       .then((res) => res.json())
       .then((data) => {

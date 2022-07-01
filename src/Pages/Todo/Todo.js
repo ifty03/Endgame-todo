@@ -8,17 +8,24 @@ import UpdateModal from "./UpdateModal";
 import toast from "react-hot-toast";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import Spinner from "../../Shared/Spinner/Spinner";
 
 const Todo = () => {
   const [currentId, setCurrentId] = useState("");
   const [user] = useAuthState(auth);
-  const { data: tasks, refetch } = useQuery("task", () =>
+  const [load, setLoad] = useState(false);
+  const {
+    data: tasks,
+    refetch,
+    isLoading,
+  } = useQuery("task", () =>
     fetch(
-      `https://damp-caverns-30204.herokuapp.com/allTask/${user?.email}`
+      `http://localhost:5000/allTask?email=${user?.email}&complete=${false}`
     ).then((res) => res.json())
   );
   //   handel complete task
   const handelComplete = (task, refetch) => {
+    setLoad(true);
     fetch("https://damp-caverns-30204.herokuapp.com/completeTask", {
       method: "POST",
       headers: {
@@ -28,19 +35,25 @@ const Todo = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`https://damp-caverns-30204.herokuapp.com/task/${task?._id}`, {
-          method: "DELETE",
+        fetch(`http://localhost:5000/task/${task?._id}`, {
+          method: "PUT",
           headers: {
             "Content-type": "application/json",
           },
+          body: JSON.stringify({ complete: true }),
         })
           .then((res) => res.json())
           .then((data) => {
+            setLoad(false);
             refetch();
             toast.success("Task Completed ! 😎");
           });
       });
   };
+
+  if (isLoading || load) {
+    return <Spinner />;
+  }
   return (
     <div className="overflow-x-auto text-slate-300  min-h-screen">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
@@ -86,9 +99,9 @@ const Todo = () => {
                     <th>
                       <label onClick={() => handelComplete(task, refetch)}>
                         <input
-                          checked={false}
                           type="checkbox"
-                          className="checkbox"
+                          name="complete"
+                          className="checkbox border-2 border-pink-500"
                         />
                       </label>
                     </th>

@@ -5,15 +5,19 @@ import { useQuery } from "react-query";
 import Swal from "sweetalert2";
 import nothing from "../../Assets/no-result.gif";
 import auth from "../../firebase.init";
+import Spinner from "../../Shared/Spinner/Spinner";
 
 const Completed = () => {
   const [user] = useAuthState(auth);
-  const { data: tasks, refetch } = useQuery("completedTask", () =>
-    fetch(
-      `https://damp-caverns-30204.herokuapp.com/completedTask/${user?.email}`
-    ).then((res) => res.json())
+  const {
+    data: tasks,
+    refetch,
+    isLoading,
+  } = useQuery("completedTask", () =>
+    fetch(`http://localhost:5000/completedTask/${user?.email}`).then((res) =>
+      res.json()
+    )
   );
-  console.log(tasks);
 
   const handelDelete = (id) => {
     Swal.fire({
@@ -26,7 +30,7 @@ const Completed = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://damp-caverns-30204.herokuapp.com/completedTask/${id}`, {
+        fetch(`http://localhost:5000/completedTask/${id}`, {
           method: "DELETE",
           headers: {
             "Content-type": "application/json",
@@ -41,6 +45,10 @@ const Completed = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <div className="overflow-x-auto text-slate-300  min-h-screen">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
