@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "../../Assets/itu-1-removebg-preview.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { signOut } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -42,10 +44,20 @@ const Navbar = () => {
             </li>
             {user ? (
               <li>
-                <button>Sign Out</button>
+                <button
+                  onClick={async () => {
+                    await signOut(auth);
+                    toast.success("Sign Out Success 🎆");
+                  }}
+                  className="btn btn-secondary"
+                >
+                  Sign Out
+                </button>
               </li>
             ) : (
-              <button>Log In</button>
+              <Link to="/login" className="btn btn-secondary">
+                Log In
+              </Link>
             )}
           </ul>
         </div>
@@ -70,10 +82,20 @@ const Navbar = () => {
             </li>
             {user ? (
               <li>
-                <button className="btn btn-secondary">Sign Out</button>
+                <button
+                  onClick={async () => {
+                    await signOut(auth);
+                    toast.success("Sign Out Success 🎆");
+                  }}
+                  className="btn btn-secondary"
+                >
+                  Sign Out
+                </button>
               </li>
             ) : (
-              <button className="btn btn-secondary">Log In</button>
+              <Link to="/login" className="btn btn-secondary">
+                Log In
+              </Link>
             )}
           </ul>
         </div>

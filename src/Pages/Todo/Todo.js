@@ -6,11 +6,16 @@ import logo from "../../Assets/itu-1-removebg-preview.png";
 import TaskModal from "./TaskModal";
 import UpdateModal from "./UpdateModal";
 import toast from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Todo = () => {
   const [currentId, setCurrentId] = useState("");
+  const [user] = useAuthState(auth);
   const { data: tasks, refetch } = useQuery("task", () =>
-    fetch("http://localhost:5000/task").then((res) => res.json())
+    fetch(`http://localhost:5000/allTask/${user?.email}`).then((res) =>
+      res.json()
+    )
   );
   //   handel complete task
   const handelComplete = (task, refetch) => {

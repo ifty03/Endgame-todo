@@ -1,19 +1,23 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
+import auth from "../../firebase.init";
 
 const TaskModal = ({ refetch }) => {
+  const [user] = useAuthState(auth);
   const handelTask = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
     const date = e.target.date.value;
+    const email = user?.email;
 
     fetch("http://localhost:5000/addTask", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ name, description, date }),
+      body: JSON.stringify({ name, description, date, email }),
     })
       .then((res) => res.json())
       .then((data) => {

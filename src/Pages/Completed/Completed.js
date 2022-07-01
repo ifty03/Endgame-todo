@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useQuery } from "react-query";
 import Swal from "sweetalert2";
 import nothing from "../../Assets/no-result.gif";
+import auth from "../../firebase.init";
 
 const Completed = () => {
-  const [complete, setComplete] = useState(true);
+  const [user] = useAuthState(auth);
   const { data: tasks, refetch } = useQuery("completedTask", () =>
-    fetch("http://localhost:5000/completedTask").then((res) => res.json())
+    fetch(`http://localhost:5000/completedTask/${user?.email}`).then((res) =>
+      res.json()
+    )
   );
   console.log(tasks);
 
