@@ -46,7 +46,7 @@ const UpdateModal = ({ refetch, id }) => {
           >
             ✕
           </label>
-          <h2>{id}</h2>
+          <h2 className="text-2xl text-left font-semibold">Update 🎭</h2>
           {/* from input */}
           <form onSubmit={updateTask}>
             <div className="form-control">
@@ -91,7 +91,7 @@ const UpdateModal = ({ refetch, id }) => {
               <input
                 className="btn bg-gradient-to-t from-purple-500 to-pink-600 hover:bg-gradient-to-t hover:from-pink-500 hover:to-purple-600 border-0 text-white"
                 type="submit"
-                value="ADD!"
+                value="UPDATE !"
               />
             </div>
           </form>

@@ -42,7 +42,7 @@ const Todo = () => {
       });
   };
   return (
-    <div className="overflow-x-auto text-slate-300">
+    <div className="overflow-x-auto text-slate-300  min-h-screen">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
         {!tasks?.length && (
           <div>

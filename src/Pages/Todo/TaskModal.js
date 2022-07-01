@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
+import { format } from "date-fns";
 import auth from "../../firebase.init";
 
 const TaskModal = ({ refetch }) => {
   const [user] = useAuthState(auth);
+  const [date, setDate] = useState(new Date());
+  // const currentDate = {format(date, "PP")}
   const handelTask = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -60,6 +63,7 @@ const TaskModal = ({ refetch }) => {
               <input
                 type="text"
                 name="date"
+                defaultValue={format(date, "PP")}
                 placeholder="Date"
                 required
                 className="input input-bordered"

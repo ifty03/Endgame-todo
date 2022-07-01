@@ -11,17 +11,19 @@ const Calender = () => {
     footer = <p>You picked {format(date, "PP")}.</p>;
   }
   return (
-    <div className="flex md:flex-row flex-col justify-center items-center md:gap-10 gap-4 bg-slate-700 lg:w-5/6 mx-auto">
-      <div>
-        <img className="w-full" src={calender} alt="calender" />
-      </div>
-      <div className="shadow-lg">
-        <DayPicker
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          footer={footer}
-        />
+    <div className=" min-h-screen">
+      <div className="flex md:flex-row flex-col justify-center items-center md:gap-10 gap-4 bg-slate-700 lg:w-5/6 mx-auto">
+        <div>
+          <img className="w-full" src={calender} alt="calender" />
+        </div>
+        <div className="shadow-lg">
+          <DayPicker
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            footer={footer}
+          />
+        </div>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const Completed = () => {
     });
   };
   return (
-    <div className="overflow-x-auto text-slate-300">
+    <div className="overflow-x-auto text-slate-300  min-h-screen">
       <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
         <h2 className="-mt-2 mb-4 text-center text-2xl font-semibold">
           Your Completed Task 🤩
