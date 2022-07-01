@@ -1,8 +1,11 @@
 import React from "react";
 import logo from "../../Assets/itu-1-removebg-preview.png";
 import { NavLink } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Navbar = () => {
+  const [user] = useAuthState(auth);
   return (
     <div class="navbar bg-base-300 h-20 md:px-10 text-slate-200 flex justify-between">
       <div>
@@ -37,6 +40,13 @@ const Navbar = () => {
             <li>
               <NavLink to="calendar">Calendar</NavLink>
             </li>
+            {user ? (
+              <li>
+                <button>Sign Out</button>
+              </li>
+            ) : (
+              <button>Log In</button>
+            )}
           </ul>
         </div>
         <div className="flex items-center justify-center ml-auto">
@@ -58,6 +68,13 @@ const Navbar = () => {
             <li>
               <NavLink to="calendar">Calendar</NavLink>
             </li>
+            {user ? (
+              <li>
+                <button className="btn btn-secondary">Sign Out</button>
+              </li>
+            ) : (
+              <button className="btn btn-secondary">Log In</button>
+            )}
           </ul>
         </div>
       </div>
