@@ -12,11 +12,23 @@ const Calender = () => {
   }
   return (
     <div className=" min-h-screen">
-      <div className="flex md:flex-row flex-col justify-center items-center md:gap-10 gap-4 bg-slate-700 lg:w-5/6 mx-auto">
-        <div>
+      <div
+        data-aos="zoom-out-down"
+        className="flex md:flex-row flex-col justify-center items-center md:gap-10 gap-4 bg-slate-700 lg:w-5/6 mx-auto"
+      >
+        <div
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           <img className="w-full" src={calender} alt="calender" />
         </div>
-        <div className="shadow-lg text-slate-300">
+        <div
+          data-aos="fade-left"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          className="shadow-lg text-slate-300"
+        >
           <DayPicker
             mode="single"
             selected={date}

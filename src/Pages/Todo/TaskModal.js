@@ -33,7 +33,6 @@ const TaskModal = ({ refetch }) => {
   return (
     <div className="bg-slate-500">
       {/* <!-- The button to open modal --> */}
-
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box bg-slate-700 ">
@@ -43,6 +42,7 @@ const TaskModal = ({ refetch }) => {
           >
             ✕
           </label>
+          <h1 className="text-2xl font-semibold ">Add Your Task ✅</h1>
           {/* from input */}
           <form onSubmit={handelTask}>
             <div className="form-control">

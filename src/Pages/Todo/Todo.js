@@ -58,7 +58,10 @@ const Todo = () => {
   }
   return (
     <div className="overflow-x-auto text-slate-300  min-h-screen">
-      <div className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit">
+      <div
+        data-aos="zoom-out"
+        className=" lg:w-8/12 mx-auto bg-slate-700 p-8 rounded-md mt-10 w-fit"
+      >
         {!tasks?.length && (
           <div>
             <p className="text-2xl text-center">Please Add Your Task 🥰</p>
@@ -146,9 +149,9 @@ const Todo = () => {
             </table>
           </div>
         )}
-        <TaskModal refetch={refetch} />
-        <UpdateModal refetch={refetch} id={currentId} />
       </div>
+      <UpdateModal refetch={refetch} id={currentId} />
+      <TaskModal refetch={refetch} />
     </div>
   );
 };
