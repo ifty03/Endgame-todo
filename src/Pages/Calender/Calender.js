@@ -16,7 +16,7 @@ const Calender = () => {
         <div>
           <img className="w-full" src={calender} alt="calender" />
         </div>
-        <div className="shadow-lg">
+        <div className="shadow-lg text-slate-300">
           <DayPicker
             mode="single"
             selected={date}
