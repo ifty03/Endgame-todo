@@ -69,6 +69,7 @@ const Completed = () => {
             <thead>
               <tr>
                 <th>Title</th>
+                <th>Date</th>
                 <th>Description</th>
                 <th>Delete</th>
               </tr>
@@ -84,6 +85,9 @@ const Completed = () => {
                         <div className="font-bold">{task?.name}</div>
                       </div>
                     </div>
+                  </td>
+                  <td>
+                    <div>{task?.date}</div>
                   </td>
                   <td>
                     <div className="">
@@ -108,6 +112,7 @@ const Completed = () => {
             <tfoot>
               <tr>
                 <th>Title</th>
+                <th>Date</th>
                 <th>Description</th>
                 <th>Delete</th>
               </tr>

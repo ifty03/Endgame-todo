@@ -92,6 +92,7 @@ const Todo = () => {
                 <tr>
                   <th>Complete</th>
                   <th>Title</th>
+                  <th>Date</th>
                   <th>Description</th>
                   <th>Edit</th>
                 </tr>
@@ -118,6 +119,9 @@ const Todo = () => {
                       </div>
                     </td>
                     <td>
+                      <div>{task?.date}</div>
+                    </td>
+                    <td>
                       <div className="">
                         {task?.description?.slice(0, 40)} <br />{" "}
                         {task?.description?.slice(41, 80)}
@@ -142,6 +146,7 @@ const Todo = () => {
                 <tr>
                   <th>Complete</th>
                   <th>Title</th>
+                  <th>Date</th>
                   <th>Description</th>
                   <th>Edit</th>
                 </tr>
